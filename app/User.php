@@ -44,6 +44,13 @@ class User extends Authenticatable
         return $this->hasMany(Micropost::class);
     }
     
+    // 多対多の関係を正確にする
+    public function favorite_users()
+    {
+        return $this->belongsToMany(Micropost::class);
+    }
+    
+    
     
     /**
      * このユーザがフォロー中のユーザ。（ Userモデルとの関係を定義）
@@ -61,14 +68,21 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
     }
     
+    // あるユーザが追加したお気に入りの一覧
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'user_id', 'micropost_id')->withTimestamps();
+    }
     
+   
+
     
     /**
      * このユーザに関係するモデルの件数をロードする。
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount('microposts','followings', 'followers');
+        $this->loadCount('microposts','followings', 'followers','favorites');
     }
     
     
