@@ -88,12 +88,12 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
 
         // ユーザのお気に入りー覧を取得
-        $favorites = $user->favorites()->paginate(10);
+        $microposts = $user->favorites()->paginate(10);
 
         // フォロー一覧ビューでそれらを表示
         return view('users.favorites', [
             'user' => $user,
-            'favorites' => $favorites,
+            'microposts' => $microposts,
         ]);
     }
 }

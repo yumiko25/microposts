@@ -22,6 +22,8 @@ class MicropostsController extends Controller
         }
 
         // Welcomeビューでそれらを表示
+       
+        
         return view('welcome', $data);
     }
     
